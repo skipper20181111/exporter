@@ -1,0 +1,48 @@
+syntax = "v1"
+
+info(
+	title: "monitor and alert by email"
+	desc: "monitor many kind of error and alert by email"
+	author: "Mr Satan"
+	email: "17854230845@163.com"
+	version: "version20240920"
+)
+import "all_types.api"
+
+@server (
+	group: email
+	prefix : email
+)
+service monitor-api{
+	@doc "发送邮件"
+	@handler postemail
+	post /postemail (PostEmailRes) returns (PostEmailResp)
+	@doc "发送邮件"
+	@handler easyemail
+	post /easyemail (EasyEmailRes) returns (EasyEmailResp)
+}
+
+@server(
+	group: refresh
+	prefix : refresh
+)
+service monitor-api {
+	@doc "刷新配置"
+	@handler refresh
+	get /refresh () returns (RefreshResp)
+}
+
+@server(
+	group: monitor
+	prefix : monitor
+)
+service monitor-api {
+
+	@doc "加密"
+	@handler encrypt
+	post /encrypt (EncryptRes) returns (EncryptResp)
+
+	@doc "检查并报告"
+	@handler report
+	post /report () returns (EncryptResp)
+}
